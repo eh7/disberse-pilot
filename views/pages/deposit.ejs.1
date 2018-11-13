@@ -1,0 +1,147 @@
+<%- include layout/dashboard/header %>
+<body>
+<%- include layout/dashboard/nav %>
+<%- include layout/dashboard/menu %>
+  <!-- Page -->
+  <div class="page">
+    <div class="page-content container-fluid">
+	<div class="row">
+      <div class="col-md-6">
+          <!-- Panel Floating Labels -->
+          <div class="panel">
+            <div class="panel-heading">
+              <h3 class="panel-title">Deposit &amp; Create Project</h3>
+            </div>
+            <div class="panel-body container-fluid">
+              <form method="POST" autocomplete="off">
+                <div class="form-group">
+                  <div class="input-group">
+                    <div class="input-group-btn">
+                      <button type="button" class="btn btn-primary dropdown-toggle waves-effect waves-classic current-currency" data-toggle="dropdown" aria-expanded="false"><%= currency %></button>
+		      <input type="hidden" value="<%= currency %>" name="currency" class="currency track-input" data-confirm="Currency" >
+                      <div class="dropdown-menu" role="menu">
+ 			<% currencies.forEach(function(currency) { %>
+                       	  <a class="dropdown-item currency-select" href="#" role="menuitem"><%= currency.type %></a>
+        		<% }); %>
+                      </div>
+                    </div>
+                    <input type="text" class="form-control track-input" name="amount" value="<%= amount %>" data-confirm="Amount" data-plugin="formatter" data-pattern="$[[999]],[[999]],[[999]].[[99]]">
+                  </div>
+                </div>
+                <div class="form-group form-material" data-plugin="formMaterial">
+                  <label class="form-control-label">Project Name</label>
+                  <input id="input1" type="text" class="form-control empty track-input" name="project_name" data-confirm="Project Name" data-hint="Write here something cool" value="<%= project_name %>"><div class="hint">Enter the name of your project</div>
+                </div>
+                <div class="form-group form-material" data-plugin="formMaterial">
+                  <label class="form-control-label">Project Code</label>
+                  <input type="text" class="form-control empty track-input" data-confirm="Project Code" name="project_code" data-hint="Write here something cool" value="<%= project_code %>"><div class="hint">Choose a code reference for your project</div>
+		</div>
+		<div class="form-group form-material" data-plugin="formMaterial">
+                  <label class="form-control-label" for="select">Select method</label>
+		   <div class="radio-custom radio-primary">
+                     <input type="radio" id="inputRadiosChecked" name="method" checked="true">
+                     <label for="inputRadiosChecked">Bank Transfer</label>
+                   </div>
+                </div>
+	      <input type=hidden name=action value="deposit"/>
+<!--
+              <button class="btn btn-primary waves-effect waves-classic btn-block" type="submit">Create project</button>
+//-->
+              <button class="btn btn-primary waves-effect waves-classic btn-block" data-target="#confirmFillIn" data-toggle="modal" type="button">Create project</button>
+                  <!-- Modal -->
+                  <div class="modal fade modal-fill-in" id="confirmFillIn" aria-labelledby="confirmFillIn" role="dialog" tabindex="-1" style="display: none;" aria-hidden="true">
+                    <div class="modal-dialog modal-simple">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                          </button>
+                          <h4 class="modal-title" id="confirmFillInModalTitle">Deposit Confirmation</h4>
+			  <img class="img-fluid" src="/assets/images/disberse-vertical.svg" alt="Disberse"/>
+                        </div>
+                        <div class="modal-body">
+                          <form>
+                            <div class="row">
+				<div class="col-md-12">
+
+			          <div class="card card-bordered card-outline-warning">
+				      <div class="card-block">
+					<div class="card-text" id="confirmText">
+					<p><b>Your Disberse Address</b></p>
+					<pre><%= address %></pre>
+					<!--<p><b>Crediting Account</b></p>
+					<pre>
+AC: 9187726
+SORT CODE : 60-60-62    
+The Bank of International Ltd    
+St Monkton 
+Jeorsay, UK
+JA1 3ES  
+					</pre>-->
+					<p><b>Currency</b></p><pre class="current-currency">GBP</pre>
+					</div>
+				      </div>
+				    </div>
+				<p>
+				Thank you for requesting to deposit funds. Please confirm the payment details you have provided above are correct.
+				</p>
+				<p>If you confirm this deposit, a copy of this transaction will be emailed to you for your reference. To cancel this request simply close this screen.</p>
+                		<button type="submit" class="btn btn-info waves-effect waves-classic btn-block">Create this project</button>
+				</div>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- End Modal -->
+
+              </form>
+            </div>
+          </div>
+          <!-- End Panel Floating Labels -->
+        </div>
+	<div class="col-md-6">
+          <!-- Panel Floating Labels -->
+          <div class="panel">
+            <div class="panel-heading">
+              <h3 class="panel-title">Instructions</h3>
+            </div>
+            <div class="panel-body container-fluid">
+		<%- include errors %>
+
+
+	    </div>
+	  </div>
+	</div>
+     </div>
+  </div>
+  <!-- End Page -->
+</body>
+	    <script type="text/javascript">
+
+		// handle dropdown select
+		$( ".currency-select" ).on( "click", function() {
+  			console.log( $( this ).text() );
+  			$('.current-currency').text( $( this ).text() );
+			$('.currency').val( $( this ).text() );
+		});
+		
+
+	      	// copy values on keypress for confirm screen all class elements must have a data-confirm="" parameter or it will error out
+		window.onload = function() {
+		   // create a p element for each field in the confirm window and populate it
+		    var sources = document.getElementsByClassName("track-input");
+                    console.log(sources);
+		    [].forEach.call(sources, function (el) {
+			   // console.log(el.getAttribute('data-confirm'))          
+			   // create the holding div
+			   var div = document.createElement("div");
+			   el.addEventListener('input', function() {
+				div.innerHTML = "<p><b>" + el.getAttribute('data-confirm') + "</b></p><pre> " + el.value + "</pre>";
+			   });
+			   document.getElementById("confirmText").appendChild(div);
+			});
+		};
+	    </script>
+<%- include layout/dashboard/footer %>

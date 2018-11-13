@@ -1,0 +1,144 @@
+<%- include layout/dashboard/header %>
+<body>
+<%- include layout/dashboard/nav %>
+<%- include layout/dashboard/menu %>
+  <!-- Page -->
+  <div class="page">
+    <div class="page-content container-fluid">
+      <div class="row">
+        <!-- Panel -->
+        <div class="col-xxl-12 col-md-12">
+          <div class="panel panel-bordered">
+            <div class="panel-heading">
+              <h3 class="panel-title">Balances</h3>
+            </div>
+            <div class="panel-body">
+              <div class="row">
+                <% currencies.forEach(function(currency) { %>
+                  <div class="col text-center">
+                    <%= currency.type %><br>
+                    <label><b><%= currency.balance %></b></label>
+                  </div>
+                <% }); %>
+              </div>
+              <% rate_link.forEach(function(link) { %>
+                <a href="/wallet<%= link.link  %>"><%= link.value %></a><br/>
+              <% }); %>
+            </div>
+          </div>
+        </div>
+        <!-- End Panel -->
+        <!-- Panel -->
+        <div class="col-md-6 col-lg-6">
+          <div class="panel panel-bordered">
+            <div class="panel-heading">
+              <h3 class="panel-title">Transactions</h3>
+            </div>
+            <div class="panel-body">
+		<div class="example table-responsive">
+                  <table class="table" id="tx">
+                    <thead>
+                      <tr>
+                        <th>Event</th>
+                        <th>Block</th>
+                        <th>Amount</th>
+                        <th>Currency</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+			<% events.forEach(function(event) { %>
+                      <tr>
+                        <td><%= event.event %></td>
+                        <td><%= event.blockNumber %></td>
+                        <td><%= event.value %></td>
+                        <td><%= event.value_code %></td>
+                      </tr>
+		       <% }); %>
+                    </tbody>
+                  </table>
+                </div>
+<script type="text/javascript">
+$(document).ready(function(){
+    $('#tx').DataTable(
+        { "order": [[ 1, "desc" ]],
+          "columns": [
+            null,
+            null,
+            null,
+            null
+          ]
+        }
+
+   );
+});
+</script>
+              <%= history %>
+                <% history_link.forEach(function(link) { %>
+                  <br><a href="/wallet<%= link.link  %>"><%= link.value %></a></li>
+                <% }); %>
+            </div>
+          </div>
+        </div>
+        <!-- End Panel -->
+        <!-- Panel -->
+        <div class="col-md-6 col-lg-6">
+          <div class="panel panel-bordered">
+            <div class="panel-heading">
+              <h3 class="panel-title">Projects</h3>
+            </div>
+            <div class="panel-body">
+                <div class="example table-responsive">
+                  <table class="table" id="projects">
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Code</th>
+                        <th>Reference</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <% projects.forEach(function(project) { %>
+                      <tr>
+                        <td><a href="/wallet?action=project&project=<%= project.project_ref %>"><%= project.name %></a></td>
+                        <td><%= project.code %></td>
+                        <td><%= project.project_ref %></td>
+                      </tr>
+                       <% }); %>
+                    </tbody>
+                  </table>
+                </div>
+<script type="text/javascript">
+$(document).ready(function(){
+    $('#projects').DataTable(
+        { "order": [[ 0, "asc" ]],
+          "columns": [
+            null,
+            null,
+            null
+          ]
+        }
+
+   );
+});
+</script>
+              <% project_link.forEach(function(link) { %>
+                <br><a href="/wallet<%= link.link  %>"><%= link.value %></a></li>
+              <% }); %>
+            </div>
+          </div>
+        </div>
+        <!-- End Panel -->
+
+<!--
+        Balances;<br>
+        <% currencies.forEach(function(currency) { %>
+          <%= currency.type %> <%= currency.balance %><br/>
+        <% }); %>
+//-->
+
+      </div>
+    </div>
+  </div>
+  <!-- End Page -->
+</body>
+<%- include layout/dashboard/footer %>

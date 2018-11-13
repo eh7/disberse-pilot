@@ -1,0 +1,73 @@
+<html>
+<head>
+
+ <script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
+  
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
+
+<script type="text/javascript" charset="utf8" src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
+<script type="text/javascript" charset="utf8" src="//cdn.datatables.net/plug-ins/1.10.16/sorting/datetime-moment.js"></script>
+
+</head>
+<body>
+<table id="table_id" class="display">
+    <thead>
+        <tr>
+            <th>Column 1</th>
+            <th>Column 2</th>
+            <th>Date</th>
+            <th>Date2</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Row 1 Data 1</td>
+            <td>Row 1 Data 2</td>
+            <td>2009/11/02</td>
+            <td>02/11/2009</td>
+        </tr>
+        <tr>
+            <td>Row 2 Data 1</td>
+            <td>Row 2 Data 2</td>
+            <td>2010/10/01</td>
+            <td>01/10/2010</td>
+        </tr>
+        <tr>
+            <td>Row 3 Data 1</td>
+            <td>Row 3 Data 2</td>
+            <td>2010/09/01</td>
+            <td>01/09/2010</td>
+        </tr>
+        <tr>
+            <td>Row 4 Data 1</td>
+            <td>Row 4 Data 2</td>
+            <td>2010/09/03</td>
+            <td>03/09/2010</td>
+        </tr>
+    </tbody>
+</table>
+</body>
+<script>
+$(document).ready(function() {
+//console.log($.fn.dataTable.moment);
+    $.fn.dataTable.moment( 'DD/MM/YYYY' );
+//    $.fn.dataTable.moment( 'HH:mm MMM D, YY' );
+//    $.fn.dataTable.moment( 'dddd, MMMM Do, YYYY' );
+ 
+    $('#table_id').DataTable();
+/*
+    $('#table_id').DataTable({
+      "columns": [
+	    null,
+	    null
+	  ]
+    });
+*/
+} );
+</script>
+</html>

@@ -1,0 +1,108 @@
+<%- include layout/dashboard/header %>
+<body>
+<%- include layout/dashboard/nav %>
+<%- include layout/dashboard/menu %>
+  <!-- Page -->
+  <div class="page">
+    <div class="page-content">
+      <div class="panel">
+        <div class="panel-body container-fluid">
+          <div class="row row-lg">
+            <div class="col-lg-12">
+              <div class="table-wrap">
+                <h4 class="table-title">Ongoing Projects</h4>
+                <div class="table-responsive">
+                  <table class="table" id="live_projects">
+                    <thead>
+                      <tr>
+                        <th>Status</th>
+                        <th>Name</th>
+                        <th>Project Code</th>
+                        <th>Date Created</th>
+                        <th>Currency</th>
+                        <th>Total Budget</th>
+                        <!--<th>Current Balance</th>-->
+                      </tr>
+                    </thead>
+                    <tbody>
+                    <% projects.forEach(function(link) { %>
+                      <% if(link.status != 'complete') { %>
+                      <tr>
+                        <td>Active</td>
+                        <td><a href="/wallet?action=project&project=<%= link.project_ref %>"><%= link.name %></a></td>
+                        <td><%= link.code %></td>
+			<td><%= moment(link.date).format('DD/MM/YYYY') %></td>
+			<td><%= link.currency %></td>
+                        <td><b><%= link.amount %></b></td>
+                        <!--<td><b>GBP <%= link.balance %></b></td>-->
+                      </tr>
+                      <% } %>
+                    <% }); %>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-body container-fluid">
+          <div class="row row-lg">        
+            <div class="col-lg-12">
+              <div class="table-wrap">
+                <h4 class="table-title">Completed Projects</h4>
+                <div class="table-responsive">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Status</th>
+                        <th>Name</th>
+                        <th>Project Code</th>
+                        <th>Total Budget</th>
+        <!--                <th>Current Balance</th>-->
+                      </tr>
+                    </thead>
+                    <tbody>
+                    <% projects.forEach(function(link) { %>
+                      <% if(link.status == 'complete') { %>
+                      <tr>
+                        <td>Active</td>
+                        <td><a href="/wallet?action=project&project=<%= link.project_ref %>"><%= link.name %></a></td>
+                        <td><%= link.code %></td>
+                        <td><b><%= link.amount %></b></td>
+                        <!--<td><b><%= link.balance %></b></td>-->
+                      </tr>
+                      <% } %>
+                    <% }); %>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>    
+  </div>
+</body>
+<script type="text/javascript">
+$(document).ready(function(){
+    $.fn.dataTable.moment( 'DD/MM/YYYY' );
+    $('#live_projects').DataTable(
+	{ "order": [[1,'asc']],
+          "columns": [
+	    null,
+	    null,
+	    null,
+	    null,
+//	    { "type": "date" },
+	    null,
+	    null
+	  ]
+	}
+
+   );
+});
+</script>
+<%- include layout/dashboard/footer %>

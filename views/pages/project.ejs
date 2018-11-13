@@ -1,0 +1,231 @@
+<%- include layout/dashboard/header %>
+<body>
+<%- include layout/dashboard/nav %>
+<%- include layout/dashboard/menu %>
+  <!-- Page -->
+  <div class="page">
+    <div class="page-content">
+<!-- Panel -->
+      <div class="panel">
+        <div class="panel-body container-fluid">
+          <div class="row">
+            <div class="col-lg-6">
+              <h3><%= projects.project_name %> (<%= projects.project_currency %>)</h3>
+              <address>
+      		Project name: <b><%= projects.project_name %></b><br/>
+      		Project Reference: <b><%= projects.project_code %></b><br/>
+                <br/>
+      		Project Budget: <b><%= projects.project_currency %> <%= projects.project_total %></b><br/>
+      		Amount Redeemed: <b><%= projects.project_currency %> <%= projects.project_redeemed %> </b><br/>
+                Project Balance: <span><b><%= projects.project_currency %> <%= projects.project_balance %></span></b><br/>
+<!--
+      		<abbr title="Disberse Signature">Signature:</abbr> <b><%= projects.project_sig %></b><br/>
+      		<abbr title="Your reference code">Project Code:</abbr> <b><%= projects.project_code %></b><br/>
+//-->
+                <!--795 Folsom Ave, Suite 600
+                <br> San Francisco, CA, 94107
+                <br>
+                <abbr title="Mail">E-mail:</abbr>&nbsp;&nbsp;example@google.com
+                <br>
+                <abbr title="Phone">Phone:</abbr>&nbsp;&nbsp;(123) 456-7890
+                <br>
+                <abbr title="Fax">Fax:</abbr>&nbsp;&nbsp;800-692-7753-->
+              </address>
+            </div>
+            <div class="col-lg-3 offset-lg-3 text-right">
+              <h4>Project Statement</h4>
+              <p>
+<!--
+                <a class="font-size-20" href="javascript:void(0)">#<%= projects.project_sig %></a>
+//-->
+                <!--<br> To:
+                <br>
+                <span class="font-size-20">Machi</span>-->
+              </p>
+              <!--<address>
+                795 Folsom Ave, Suite 600
+                <br> San Francisco, CA, 94107
+                <br>
+                <abbr title="Phone">P:</abbr>&nbsp;&nbsp;(123) 456-7890
+                <br>
+              </address>
+              <span>Created: <%= projects.date %></span>
+              <br>
+              <span>Due: <%= projects.date %></span>-->
+            </div>
+          </div>
+          <div class="page-invoice-table table-responsive">
+            <table class="table table-hover text-right" id="project_events">
+              <thead>
+                <tr>
+          <th class="text-left" >Transactions</th>
+          <th class="text-left">Currency</th>
+          <th class="text-left">Amount</th>
+          <th class="text-left">From</th>
+          <th class="text-left">To</th>
+          <th class="text-left">Date</th>
+          <th class="text-left">Time</th>
+          <th class="text-left">Block</th>
+<!--
+                  <th class="text-right">Quantity</th>
+                  <th class="text-right">Unit Cost</th>
+                  <th class="text-right">Total</th>
+-->
+                </tr>
+              </thead>
+              <tbody>
+          <% events.forEach(function(event) { %>
+            <tr>
+              <td class="text-left" ><%= event.event_out %></td>
+              <td class="text-left" ><%= projects.project_currency %></td>
+              <td class="text-left"><%= event.returnValues.value %></td>
+<!--
+              <td class="text-left" title="<%= event.project_address_from %>"><%= event.org_from %></td>
+//-->
+              <td class="text-left" title="<%= event.project_address_from %>"><%= event.org_from %></td>
+              <td class="text-left" title="<%= event.project_address_to %>"><%= event.org_to %></td>
+              <td class="text-left">
+                <%= event.timestamp[2] %>/<%= event.timestamp[1] %>/<%= event.timestamp[0] %>
+              </td>
+              <td class="text-left">
+                <%= event.timestamp[3] %>:<%= event.timestamp[4] %>:<%= event.timestamp[5] %>
+              </td>
+              <td class="text-left">
+                <%= event.blockNumber %>
+              </td>
+<!--
+              <td class="text-left">
+                <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="bottom" title="<%= event.project_address_from %>">
+  Tooltip on top
+                </button>
+              </td>
+              <td class="text-left" data-toggle="tooltip" data-placement="bottom" title="<%= event.project_address_from %>"><%= event.org_from %></td>
+//-->
+            </tr>
+          <% }); %>
+              </tbody>
+            </table>
+          </div>
+	<hr>
+          <div class="text-right clearfix">
+            <div class="float-right">
+<!--
+              <p>VAT:
+                <span>N/A</span>
+              </p>
+//-->
+<!--
+              <p class="page-invoice-amount">Initial Project Balance:
+                <span><%= projects.project_currency %> <%= projects.project_total %></span>
+              </p>
+//-->
+              <p><b>Current balance:
+                <span><%= projects.project_currency %> <%= projects.current_balance %></span>
+              </b></p>
+            </div>
+          </div>
+	<hr>
+          <div class="text-right">
+<!--
+            <button type="submit" class="btn btn-animate btn-animate-side btn-primary" onclick="javascript:window.location.href='/wallet?action=send&project=<%= projects.project_sig %>'"; >
+              <span><i class="icon md-arrow-right-top" aria-hidden="true"></i> Fund this project</span>
+            </button>
+            <button type="button" class="btn btn-animate btn-animate-side btn-info" onclick="javascript:window.print();">
+              <span><i class="icon md-print" aria-hidden="true"></i> Print</span>
+            </button>
+//-->
+          </div>
+        </div>
+      </div>
+      <!-- End Panel -->
+
+
+<!--
+      <table width=800 border>
+      <tr>
+        <td><b>Type</b></td>
+        <td><b>Amount</b></td>
+        <td><b>From</b></td><td><b>To</b></td><td><b>Date</b></td></tr>
+      <% events.forEach(function(event) { %>
+
+        <tr>
+          <td><%= event.event %></td>
+          <td><%= event.returnValues.value %></td>
+          <td><%= event.org_from %></td><td><%= event.org_to %></td><td>DATE & TIME</td></tr>
+
+//-->
+<!--
+        Project Name: <b><%= event.project_name %></b><br/>
+        Return Value;<br>
+        <b><%= event.project_ref %></b><br/>
+        <b><%= event.event %></b><br/>
+        from: <b><%= event.org_from %><br><%= event.project_address_from %></b><br/>
+        to: <b><%= event.org_to %><br><%= event.project_address_to %></b><br/>
+        amount: <b><%= event.returnValues.value %></b><br/>
+        project balance: <b><%= event.project_balance %></b><br/>
+        <ul>
+        <li style=""><%= event.returnValues[0] %></li>
+        <li style=""><%= event.returnValues[1] %></li>
+        <li style=""><%= event.returnValues[2] %></li>
+        <li style=""><%= event.returnValues[3] %></li>
+        <li style=""><%= event.returnValues[4] %></li>
+        </ul>
+        <hr>
+//-->
+<!--
+      <% }); %>
+      </table>
+//-->
+</div>
+
+<!--
+      <ul>
+      <li>AMOUNT / ISSUED BY / ISSUED TO / DATE & TIME</li>
+      <li>AMOUNT / SENT TO / RECEVIED BY / DATE & TIME</li>
+      <li>AMOUNT / SENT TO / RECEVIED BY / DATE & TIME</li>
+      <li>AMOUNT / SENT TO / RECEVIED BY / DATE & TIME</li>
+      <li>AMOUNT / REDEEMED BY / RATE / DATE & TIME</li>
+      <li>AMOUNT / REDEEMED BY / RATE / DATE & TIME</li>
+      <li>AMOUNT / REDEEMED BY / RATE / DATE & TIME</li>
+      <li>PROJECT CLOSED<br/>
+      </ul>
+
+      <h2>Project Balance</h2>
+
+
+      <h2>Project Details</h2>
+      Depositor Location:<br/>
+      Implementation Location(s):<br/>
+      Total Budget:<br/>
+
+      <br/><br/>
+
+      <h2>Project Description</h2>
+      Text describing the project.
+//-->
+    </div>
+  </div>
+  <!-- End Page -->
+</body>
+<script type="text/javascript">
+$(document).ready(function(){
+    $.fn.dataTable.moment( 'DD/MM/YYYY' );
+    $('#project_events').DataTable(
+        { "order": [[ 7, "desc" ]],
+          "columns": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+//            { "type": "date" },
+            null
+          ]
+        }
+
+   );
+});
+</script>
+<%- include layout/dashboard/footer %>

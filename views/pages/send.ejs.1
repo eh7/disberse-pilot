@@ -1,0 +1,164 @@
+<%- include layout/dashboard/header %>
+<body>
+<%- include layout/dashboard/nav %>
+<%- include layout/dashboard/menu %>
+  <!-- Page -->
+  <div class="page">
+    <div class="page-content">
+      <div class="row">
+      	<div class="col-md-6">
+          <!-- Panel Floating Labels -->
+          <div class="panel">
+            <div class="panel-heading">
+              <h3 class="panel-title">Send Funds</h3>
+            </div>
+            <div class="panel-body container-fluid">
+              <form method="POST" autocomplete="off">
+		<div class="form-group form-material" data-plugin="formMaterial">
+                  <select class="form-control track-input" id="select" name="project" data-confirm="Project Name">
+		  <option value="">Select project...</option>
+		  <% project_options.forEach(function(p) { %>
+		    <% if(p.selected == 'selected') { %>
+		      <option value="<%= p.ref %>" data-currency="<%= p.currency %>" selected="true"> <%= p.name %></option>
+		    <% } else { %>
+		      <option value="<%= p.ref %>" data-currency="<%= p.currency %>"> <%= p.name %></option>
+		    <% } %>
+		  <% }) %>
+                  </select>
+		<p><small style="color:#4dc2dc ">Please note: You can only send funds in the project's native currency</small></p>
+                </div>
+		<div class="form-group">
+                  <div class="input-group">
+                    <div class="input-group-btn">
+                      <button type="button" class="btn btn-primary  waves-effect waves-classici current-currency" data-toggle="dropdown" aria-expanded="false"><%= currency %></button>
+                      <input type="hidden" value="GBP" name="currency" class="currency track-input" data-confirm="Currency" >
+                      <!--<div class="dropdown-menu" role="menu">
+                        <% currencies.forEach(function(currency) { %>
+                          <a class="dropdown-item currency-select" href="#" role="menuitem"><%= currency %></a>
+                        <% }); %>
+                      </div>-->
+                    </div>
+                    <input type="text" class="form-control track-input" name="amount" value="<%= amount %>" data-confirm="Payment amount">
+                  </div>
+                </div>
+                <div class="form-group form-material" data-plugin="formMaterial">
+                  <label class="form-control-label">Receiver's email or Disberse wallet address</label>
+		  <input type="text" class="form-control empty track-input" name="address_to" data-confirm="Paying to disberse account" data-hint="the wallet address" placeholder="e.g. receiver@email.org or 6a78d06b4158e643e51d8c88d9f00dece88162ce" value="<%= address_to %>"><div class="hint">Enter the Payee's wallet or email address</div>
+                </div>
+                <div class="form-group form-material" data-plugin="formMaterial">
+                  <label class="form-control-label">Tracking Code</label>
+                  <input type="text" class="form-control empty track-input" name="purpose" data-confirm="Payment Tracking Code" data-hint="Payment Tracking Code" value="<%= purpose %>"><div class="hint">Choose a code reference for your payment</div>
+                </div>
+              <input type="hidden" name="action" value="send"/>
+<!--
+              <button class="btn btn-primary waves-effect waves-classic btn-block" type="submit">Confirm payment</button>
+//-->
+              <button class="btn btn-primary waves-effect waves-classic btn-block" data-target="#confirmFillIn" data-toggle="modal" type="button">Confirm payment</button>
+                  <!-- Modal -->
+                  <div class="modal fade modal-fill-in" id="confirmFillIn" aria-labelledby="confirmFillIn" role="dialog" tabindex="-1" style="display: none;" aria-hidden="true">
+                    <div class="modal-dialog modal-simple">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                          </button>
+                          <h4 class="modal-title" id="confirmFillInModalTitle">Payment Confirmation</h4>
+                          <img class="img-fluid" src="/assets/images/disberse-vertical.svg" alt="Disberse"/>
+                        </div>
+                        <div class="modal-body">
+                          <form>
+                            <div class="row">
+                                <div class="col-md-12">
+
+                                <p>
+                                Before continuing, please confirm the payment details you have provided below are correct.
+                                </p>
+                                  <div class="card card-bordered card-outline-success">
+                                      <div class="card-block">
+                                        <div class="card-text" id="confirmText">
+                                        <p><b>Your Disberse Address</b></p>
+                                        <pre><%= address %></pre>
+                                        <p><b>Currency</b></p><pre class="current-currency">GBP</pre>
+                                        </div>
+                                      </div>
+                                    </div>
+                                <p>If you confirm this payment, a copy of this transaction will be emailed to you for your reference. To cancel this request simply close this screen.</p>
+                		<button type="submit" class="btn btn-info waves-effect waves-classic btn-block">Send payment</button>
+                                </div>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- End Modal -->
+              </form>
+            </div>
+          </div>
+          <!-- End Panel Floating Labels -->
+        </div>
+        <div class="col-md-6">
+          <!-- Panel Floating Labels -->
+          <div class="panel">
+            <div class="panel-heading">
+              <h3 class="panel-title">Instructions</h3>
+            </div>
+            <div class="panel-body container-fluid">
+                <%- include errors %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Page -->
+</body>
+            <script type="text/javascript">
+
+
+                // handle select
+                $( "#select" ).on( "change", function() {
+			
+			var currency = $( this ).find(':selected').data('currency');
+
+                        console.log( currency );
+                        $('.current-currency').text( currency );
+                        $('.currency').val( currency );
+                });
+
+/*
+
+                // handle dropdown select
+                $( ".currency-select" ).on( "click", function() {
+                        console.log( $( this ).text() );
+                        $('.current-currency').text( $( this ).text() );
+                        $('.currency').val( $( this ).text() );
+                });
+
+*/
+
+              // copy values on keypress for confirm screen all class elements must have a data-confirm="" parameter or it will error out
+                window.onload = function() {
+                   // create a p element for each field in the confirm window and populate it
+                    var sources = document.getElementsByClassName("track-input");
+                    [].forEach.call(sources, function (el) {
+                           // console.log(el.getAttribute('data-confirm'))
+                           // create the holding p
+                          console.log(el.nodeName); 
+			  var div = document.createElement("div");
+			   if (el.nodeName == "SELECT") {
+			     el.addEventListener("change", function() {
+			   	div.innerHTML = "<p><b>" + el.getAttribute('data-confirm') + "</b></p><pre>" + el.options[el.selectedIndex].text + "</pre>"; 
+		             })
+			   }
+			   if (el.nodeName == "INPUT") {
+                             el.addEventListener('input', function() {
+                                div.innerHTML = "<p><b>" + el.getAttribute('data-confirm') + "</b></p><pre>" + el.value + "</pre>";
+                             });
+			   }
+                           document.getElementById("confirmText").appendChild(div);
+                        });
+                };
+            </script>
+<%- include layout/dashboard/footer %>
+

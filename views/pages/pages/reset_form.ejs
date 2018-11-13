@@ -1,0 +1,66 @@
+<%- include layout/site/header %>
+ <!--[if lt IE 8]>
+        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+  <!-- Page -->
+  <div class="page vertical-align text-center" data-animsition-in="fade-in" data-animsition-out="fade-out">
+    <div class="page-content vertical-align-middle">
+      <div class="panel">
+        <div class="panel-body">
+          <div class="brand">
+            <img class="brand-img" src="/assets/images/disberse-vertical.svg" alt="...">
+            <%- include errors %>
+          </div>
+          <form method="post" action="/wallet" autocomplete="off">
+            <!-- error? -->
+            <!--b><%= error %></b//-->
+            <!--b><%= authcode %></b//-->
+<% if(locals.auth_chk) { %>
+            <!--b><%= JSON.stringify(auth_chk) %></b//-->
+            <input type="hidden" name="action" value="authcode">
+            <input type="hidden" name="authcode" value="<%= authcode %>">
+<% } %>
+            <div class="form-group form-material floating" data-plugin="formMaterial">
+              <input type="email" class="form-control" name="email" value="<%= email %>" />
+              <label class="floating-label">Email</label>
+            </div>
+            <div class="form-group form-material floating" data-plugin="formMaterial">
+              <input type="password" class="form-control" name="password" />
+              <label class="floating-label">Password</label>
+            </div>
+            <div class="form-group form-material floating" data-plugin="formMaterial">
+              <input type="password" class="form-control" name="password_chk" />
+              <label class="floating-label">Password Chk</label>
+            </div>
+            <div class="form-group form-material floating" data-plugin="formMaterial">
+              <input type="password" class="form-control" name="pincode" />
+              <label class="floating-label">Pincode</label>
+            </div>
+            <div class="form-group form-material floating" data-plugin="formMaterial">
+              <input type="password" class="form-control" name="pincode_chk" />
+              <label class="floating-label">Pincode Chk</label>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block btn-lg mt-40">Next</button>
+          </form>
+          <p>Still no account? Please go to <a href="/wallet?action=reg">Sign up</a></p>
+        </div>
+      </div>
+      <footer class="page-copyright page-copyright-inverse">
+        <p></p>
+        <p>DISBERSE &copy; 2018. All RIGHT RESERVED.</p>
+        <div class="social">
+          <a class="btn btn-icon btn-pure" href="javascript:void(0)">
+            <i class="icon bd-twitter" aria-hidden="true"></i>
+          </a>
+          <a class="btn btn-icon btn-pure" href="javascript:void(0)">
+            <i class="icon bd-facebook" aria-hidden="true"></i>
+          </a>
+          <a class="btn btn-icon btn-pure" href="javascript:void(0)">
+            <i class="icon bd-google-plus" aria-hidden="true"></i>
+          </a>
+        </div>
+      </footer>
+    </div>
+  </div>
+  <!-- End Page -->
+<%- include layout/site/footer %>

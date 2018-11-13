@@ -1,0 +1,87 @@
+<%- include layout/dashboard/header %>
+<body id="body">
+<%- include layout/dashboard/nav %>
+<%- include layout/dashboard/menu %>
+  <!-- Page -->
+  <div class="page">
+    <div class="page-content">
+      <div class="row">
+        <div class="col-md-12">
+          <!-- Panel Floating Labels -->
+          <div class="panel">
+            <div class="panel-heading">
+              <% if(!locals.txhashBlockNumber) { %>
+                <h3 class="panel-title">Thank you! <br><br>We’re processing your transaction now. <br><br>Check your dashboard for updates.</h3>
+              <% } else { %>
+                <h3 class="panel-title">Thank you! <br><br>Your request is being processed.</h3>
+              <% } %>
+            </div>
+            <div class="panel-body container-fluid">
+                <!--%- include errors %//-->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Page -->
+</body>
+
+<% if(!locals.txhashBlockNumber) { %>
+<script type="text/javascript">
+  setTimeout(function () {
+//     alert("/wallet?action=redeem_chk&hash=<%= txhash %>");
+     window.location = "/wallet?action=redeem_chk&hash=<%= txhash %>";
+  }, 3000)
+</script>
+<% } %>
+
+            <script type="text/javascript">
+
+
+                // handle select
+                $( "#select" ).on( "change", function() {
+			
+			var currency = $( this ).find(':selected').data('currency');
+
+                        console.log( currency );
+                        $('.current-currency').text( currency );
+                        $('.currency').val( currency );
+                });
+
+/*
+
+                // handle dropdown select
+                $( ".currency-select" ).on( "click", function() {
+                        console.log( $( this ).text() );
+                        $('.current-currency').text( $( this ).text() );
+                        $('.currency').val( $( this ).text() );
+                });
+
+*/
+
+              // copy values on keypress for confirm screen all class elements must have a data-confirm="" parameter or it will error out
+                window.onload = function() {
+                   // create a p element for each field in the confirm window and populate it
+                    var sources = document.getElementsByClassName("track-input");
+                    [].forEach.call(sources, function (el) {
+                           // console.log(el.getAttribute('data-confirm'))
+                           // create the holding p
+                          console.log(el.nodeName); 
+			  var div = document.createElement("div");
+			   if (el.nodeName == "SELECT") {
+			     el.addEventListener("change", function() {
+			   	div.innerHTML = "<p><b>" + el.getAttribute('data-confirm') + "</b></p><pre>" + el.options[el.selectedIndex].text + "</pre>"; 
+		             })
+			   }
+			   if (el.nodeName == "INPUT") {
+                             el.addEventListener('input', function() {
+                                div.innerHTML = "<p><b>" + el.getAttribute('data-confirm') + "</b></p><pre>" + el.value + "</pre>";
+                             });
+			   }
+                           document.getElementById("confirmText").appendChild(div);
+                        });
+                };
+            </script>
+<%- include layout/dashboard/footer %>
+

@@ -1,0 +1,63 @@
+<%- include eh7net_layout %>
+<body>
+<%- include eh7net_nav %>
+  <div class="page">
+    <div class="page-content">
+      <div class="panel">
+        <div class="panel-body container-fluid">
+          <div class="row row-lg">
+				    <div class="col-lg-12">
+              <div class="table-wrap">
+                <h4 class="table-title">eh7net Blocks</h4>
+                <div class="table-responsive">
+                  <h1>Transaction</h1>
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Key</th>
+                        <th>Value</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <% transactions.forEach(function(tx){ %>
+          	        <% 
+                           var keys = [];
+                           for(var k in tx) keys.push(k);  
+                           keys = keys.sort();
+                        %>
+           	        <% for(var i=0; i<keys.length; i++) { %>
+           	          <% var key = keys[i]; %>
+                          <tr>
+           	            <% if(!key.match(/^\$/) && !key.match(/^\_/) && !String(tx[key]).match(/^function/)) { %>
+           	              <% if(key == 'date') { %>
+                                <td>date</td>
+                                <td>
+                                  <%= tx[key][0] %>/<%= tx[key][1] %>/<%= tx[key][2] %> 
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>time</td>
+                                <td>
+                                  <%= tx[key][3] %>:<%= tx[key][4] %>:<%= tx[key][5] %>
+                                </td>
+           	              <% } else { %>
+                                <td><%= key %></td>
+                                <td><%= tx[key] %></td>
+           	              <% } %>
+           	            <% } %>
+                          </tr>
+           	        <% } %>
+                      <% }); %>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+			    </div>
+		    </div>
+	    </div>
+    </div>
+  </div>
+</body>
+<%- include layout/dashboard/footer %>
+

@@ -1,0 +1,98 @@
+<%- include layout/dashboard/header %>
+<body>
+<%- include layout/dashboard/nav %>
+<%- include layout/dashboard/menu %>
+  <div class="page">
+    <div class="page-content">
+      <div class="panel">
+        <div class="panel-body container-fluid">
+          <div class="row row-lg">
+	    <div class="col-lg-12">
+              <div class="table-wrap">
+                <h4 class="table-title">Transactions</h4>
+<!--
+//-->
+                <div class="row">
+                  <% currency_types.forEach(function(currency) { %>
+                    <div class="col text-left">
+                      Currency: <b><%= currency %></b><br>
+                      Balance: <b><%= total_balances[currency] %></b><br>
+                      Credit: <b><%= total_type_credit[currency] %></b><br>
+                      Debit: <b><%= total_type_debit[currency] %></b><br>
+                    </div>
+                  <% }); %>
+                </div>
+                <br>
+                <div class="page-invoice-table table-responsive">
+                  <table class="table table-hover text-left" id="tx">
+                    <thead>
+                      <tr>
+                        <th>Transaction</th>
+                        <!--<th>Currency</th>-->
+                        <th>Currency</th>
+                        <th>Credit</th>
+                        <th>Debit</th>
+                        <th>From</th>
+                        <th>To</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Block</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+           	        <% events.forEach(function(event) { %>
+                      <tr>
+                        <td><%= event.typename %></td>
+                        <td><%= event.currency %></td>
+                        <td><%= event.formated_value_credit %> </td>
+                        <td><%= event.formated_value_debit %></td>
+                        <td><%= event.user_org_from %></td>
+                        <td><%= event.user_org_to %></td>
+                        <td>
+		         <% if(event.timestamp[2]){ %>
+                          <%= event.timestamp[2] %>/<%= event.timestamp[1] %>/<%= event.timestamp[0] %>
+			  <% }else{ %>Pending<% } %>
+                        </td>
+                        <td>
+  			<% if(event.timestamp[3]){ %>
+                          <%= event.timestamp[3] %>:<%= event.timestamp[4] %>:<%= event.timestamp[5] %>
+			  <% }else{ %><% } %>
+                        </td>
+                        <td><%= event.blockNumber %></td>
+                      </tr>
+           	        <% }); %>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+			    </div>
+		    </div>
+	    </div>
+    </div>
+  </div>
+</body>
+<script type="text/javascript">
+$(document).ready(function(){
+    $.fn.dataTable.moment( 'DD/MM/YYYY' );
+    $('#tx').DataTable(
+        { "order": [[ 8, "desc" ]],
+          "columns": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+//            { "type": "date" },
+            null,
+            null
+          ]
+        }
+
+   );
+});
+</script>
+<%- include layout/dashboard/footer %>
+

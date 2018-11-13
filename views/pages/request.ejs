@@ -1,0 +1,57 @@
+<%- include layout/dashboard/header %>
+<body>
+<%- include layout/dashboard/nav %>
+<%- include layout/dashboard/menu %>
+  <!-- Page -->
+  <div class="page">
+    <div class="page-content">
+
+    <h2>Request</h2>
+
+    <%- include errors %>
+
+    <form method="POST">
+    <b>Step 1: Details</b>
+    <ul>
+    <li>
+      <label class=spacy>Project Ref:</label> 
+      <input type=text name=project_ref value="<%= project_ref %>" \>
+    </li>
+    </ul>
+
+    <b>Step 2: Enter Details</b>
+
+    <ul>
+    <li>
+      <label class=spacy>Amount:</label> 
+      <input type=text name=amount value="<%= amount %>"\>
+    </li>
+    </ul>
+
+
+    <b>Step 3: Select Contact</b>
+
+    <ul>
+    <li>
+      <label class=spacy>Wallet Address To:</label> 
+      <input type=text name=address_to size=40 value="<%= address_to %>"\>
+    </li>
+    <li style="list-style: none;">
+      <br/>
+      <label class=spacy>&nbsp;</label> 
+      <input type=submit value="REQUEST"/><br/> 
+      <label class=spacy>&nbsp;</label> 
+      <a href="/wallet?action=">Invite contact via email (???)</a>
+    </li>
+    </ul>
+
+
+    <input type=hidden name=action value="request"/>
+    </form>
+
+    </div>
+  </div>
+  <!-- End Page -->
+</body>
+<%- include layout/dashboard/footer %>
+

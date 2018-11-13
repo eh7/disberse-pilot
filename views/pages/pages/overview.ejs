@@ -1,0 +1,104 @@
+<%- include layout/dashboard/header %>
+<body>
+<%- include layout/dashboard/nav %>
+<%- include layout/dashboard/menu %>
+  <!-- Page -->
+  <div class="page">
+    <div class="page-content container-fluid">
+      <div class="row">
+
+        <div class="col-md-6 col-lg-6">
+          <div class="panel panel-bordered">
+            <div class="panel-heading">
+              <h3 class="panel-title"All >Projects</h3>
+            </div>
+            <div class="table-wrap">
+              <table class="table" id="projects">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Code</th>
+                    <th>Reference</th>
+                    <th>Block</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% projects.forEach(function(project) { %>
+                    <tr>
+                      <td><a href="/wallet?action=project&type=over&project=<%= project.project_ref %>"><%= project.name %></a></td>
+                      <td><%= project.code %></td>
+                      <td><%= project.project_ref %></td>
+                      <td><%= project.startBlock %></td>
+                    </tr>
+                  <% }); %>
+                </tbody>
+              </table>
+            </div>
+<script type="text/javascript">
+$(document).ready(function(){
+    $('#projects').DataTable(
+        { "order": [[ 3, "desc" ]],
+          "columns": [
+            null,
+            null,
+            null,
+            null
+          ]
+        }
+
+   );
+});
+</script>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-6">
+          <div class="panel panel-bordered">
+            <div class="panel-heading">
+              <h3 class="panel-title">Transactions Overview</h3>
+            </div>
+            <div class="table-wrap">
+              <table class="table" id="tx">
+                <thead>
+                  <tr>
+                    <th>Event</th>
+                    <th>Block</th>
+                    <th>Amount</th>
+                    <th>Currency</th>
+                  </tr>
+                </thead>
+                <tbody>
+		  <% txs.forEach(function(tx) { %>
+                    <tr>
+                      <td><%= tx.event %></td>
+                      <td><%= tx.blockNumber %></td>
+                      <td><%= tx.value %></td>
+                      <td><%= tx.value_code %></td>
+                    </tr>
+		  <% }); %>
+                </tbody>
+              </table>
+<script type="text/javascript">
+$(document).ready(function(){
+    $('#tx').DataTable(
+        { "order": [[ 1, "desc" ]],
+          "columns": [
+            null,
+            null,
+            null,
+            null
+          ]
+        }
+
+   );
+});
+</script>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</body>
+<%- include layout/dashboard/footer %>

@@ -1,0 +1,74 @@
+<%- include layout/dashboard/header %>
+<body>
+<%- include layout/dashboard/nav %>
+<%- include layout/dashboard/menu %>
+
+  <!-- Page -->
+  <div class="page">
+    <div class="page-content container-fluid">
+      <div class="row">
+        <!-- Panel -->
+        <div class="col-xxl-4 col-lg-4">
+          <div class="panel panel-bordered">
+            <div class="panel-heading">
+              <h3 class="panel-title">Balance</h3>
+            </div>
+            <div class="panel-body">
+              <%= rates %>
+                <% rate_link.forEach(function(link) { %>
+                <a href="/wallet<%= link.link  %>"><%= link.value %></a>
+              <% }); %>
+            </div>
+          </div>
+        </div>
+        <!-- End Panel -->
+        <!-- Panel -->
+        <div class="col-xxl-4 col-lg-4">
+          <div class="panel panel-bordered">
+            <div class="panel-heading">
+              <h3 class="panel-title">Transactions</h3>
+            </div>
+            <div class="panel-body">
+              <%= history %>
+                <table>
+                <% events.forEach(function(event) { %>
+                  <tr>
+                    <td><%= event.event %></td>
+                    <td><%= event.blockNumber %></td> 
+                    <td><%= event.returnValues.from %></td>
+                    <td><%= event.returnValues.to %></td>
+                    <td><%= event.returnValues.value %></td>
+                  </tr>
+                <% }); %>
+                </table>
+                <% events.forEach(function(event) { %>
+                <% history_link.forEach(function(link) { %>
+                  <br><a href="/wallet<%= link.link  %>"><%= link.value %></a></li>
+                <% }); %>
+            </div>
+          </div>
+        </div>
+        <!-- End Panel -->
+        <!-- Panel -->
+        <div class="col-xxl-4 col-lg-4">
+          <div class="panel panel-bordered">
+            <div class="panel-heading">
+              <h3 class="panel-title">Projects</h3>
+            </div>
+            <div class="panel-body">
+            <%= projects %>
+              <% project_link.forEach(function(link) { %>
+                <br><a href="/wallet<%= link.link  %>"><%= link.value %></a></li>
+              <% }); %>
+            </div>
+          </div>
+        </div>
+        <!-- End Panel -->
+      <b><%= my_var %></b>
+
+      </div>
+    </div>
+  </div>
+  <!-- End Page -->
+</body>
+<%- include layout/dashboard/footer %>

@@ -1,0 +1,54 @@
+<%- include layout/dashboard/header %>
+<body>
+<%- include layout/dashboard/nav %>
+<%- include layout/dashboard/menu %>
+  <!-- Page -->
+  <div class="page">
+    <div class="page-content">
+
+<b><%= my_var %></b>
+
+
+<form method="POST">
+<h2>Receive</h2>
+
+<div style="display:inline-block;">
+
+<div style="display:inline-block;">1</div> 
+
+Or 
+
+<div style="display:inline-block;">2</div>
+
+<div>
+
+<div style="display:inline-block;">
+
+<b>Share This Address</b>
+
+<div style="display:inline-block; width:250px; height:250px; border:1px solid red; ">
+</div>
+
+</div>
+
+OR
+
+<div style="display:inline-block;">
+
+<b>Scan the code</b>
+
+<div style="display:inline-block; width:250px; height:250px; border:1px solid red; ">
+  qr code genrated for the correct transaction data.
+<input type=hidden name=action value="receive"/>
+</div>
+
+</div>
+
+</form>
+
+    </div>
+  </div>
+  <!-- End Page -->
+</body>
+<%- include layout/dashboard/footer %>
+

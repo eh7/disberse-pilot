@@ -1,0 +1,25 @@
+<%- include layout/dashboard/header %>
+<body>
+<%- include layout/dashboard/nav %>
+<%- include layout/dashboard/menu %>
+  <!-- Page -->
+  <div class="page">
+    <div class="page-content">
+      <b><%= my_var %></b>
+      <h2>Support</h2>
+      <h4>Please read the FAQS before sending a message</h4>
+      <form method="POST">
+        <input type=text name=subject value="<%= subject %>"/><br>
+        <textarea style="padding:10px;" name=body cols=100 rows=10><%= body %></textarea><br>
+        <%if (!send_disable) { %>
+          <input type=submit value="Send"/><br>
+        <% } else { %>
+          <input type=submit value="Send"  disabled/><br>
+        <% } %>
+        <input type=hidden name=action value='support'/>
+      </form>
+    </div>
+  </div>
+  <!-- End Page -->
+</body>
+<%- include layout/dashboard/footer %>

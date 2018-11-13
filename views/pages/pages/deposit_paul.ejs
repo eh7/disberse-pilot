@@ -1,0 +1,238 @@
+<%- include layout/dashboard/header %>
+<body>
+<%- include layout/dashboard/nav %>
+<%- include layout/dashboard/menu %>
+  <!-- Page -->
+  <div class="page">
+    <div class="page-content container-fluid">
+      <div class="row">
+        <div class="col-lg-12">
+          <!-- Panel Wizard Form Container -->
+          <div class="panel" id="exampleWizardFormContainer">
+            <div class="panel-heading">
+              <h3 class="panel-title">Deposit funds</h3>
+            </div>
+            <div class="panel-body">
+              <!-- Steps -->
+              <div class="pearls row">
+                <div class="pearl current col-4">
+                  <div class="pearl-icon"><i class="icon md-account" aria-hidden="true"></i></div>
+                  <span class="pearl-title">Choose project</span>
+                </div>
+                <div class="pearl col-4">
+                  <div class="pearl-icon"><i class="icon md-card" aria-hidden="true"></i></div>
+                  <span class="pearl-title">Deposit information</span>
+                </div>
+                <div class="pearl col-4">
+                  <div class="pearl-icon"><i class="icon md-check" aria-hidden="true"></i></div>
+                  <span class="pearl-title">Confirm details</span>
+                </div>
+              </div>
+              <!-- End Steps -->
+              <!-- Wizard Content -->
+              <form id="exampleFormContainer">
+                <div class="wizard-content">
+                  <div class="wizard-pane active" role="tabpanel">
+                    <div class="form-group form-material row">
+                      <div class="col-md-6">
+                        <label class="form-control-label" for="UserName">Name</label>
+                        <input type="text" class="form-control" id="UserName" name="name" required="required">
+                      </div>
+                      <div class="col-md-6">
+                        <label class="form-control-label" for="Location">Location</label>
+                        <input type="text" class="form-control" id="Location" name="location" required="required">
+                      </div>
+                    </div>
+                    <div class="form-group form-material">
+                      <label class="form-control-label" for="Reference">Deposit Reference</label>
+                      <input type="text" class="form-control" id="Reference" name="reference" required="required">
+                    </div>
+                  </div>
+                  <div class="wizard-pane" id="exampleBillingOne" role="tabpanel">
+
+<!-- 
+
+      <ul>
+        <li>
+            <label class=spacy>Currency:</label>
+            <input type=text name=currency value=""\>
+        </li>
+        <li>
+            <label class=spacy>Amount:</label>
+            <input type=text name=amount value=""\>
+        </li>
+      </ul> -->
+
+
+<!--       <ul>
+        <li>
+            <label class=spacy>Bank Transfer</label>
+            <input type=radio name=method value="bank_transfer" checked="true"\>
+        </li>
+      </ul>
+
+      <input type=submit value="REQUEST"/>
+      </form> -->
+
+    <!-- 
+
+              <ul>
+                <li>Currency:
+                    <input type=text name=currency value=""\>
+                </li>
+                <li>Amount:
+                    <input type=text name=amount value=""\>
+                </li>
+                  <input type=submit value="REQUEST"/>
+                  <input type=hidden name=action value="deposit"/>
+              </ul> -->
+                    <div class="form-group form-material row">
+                      <div class="col-md-4">
+                        <label class="form-control-label" for="Amount">Currency</label>
+                        <input type="text" class="form-control" id="Amount" name="number" placeholder="Card number">
+                      </div>
+                      <div class="col-md-4">
+                        <label class="form-control-label" for="Amount">Amount</label>
+                        <input type="text" class="form-control" id="Amount" name="number" placeholder="Card number">
+                      </div>
+                      <div class="col-md-4">
+                        <div class="radio-custom radio-primary">
+                          <input type="radio" id="BankTransfer" name="BankTransfer" checked>
+                          <label for="BankTransfer">Bank Transfer</label>
+                        </div>
+                        <div class="radio-custom radio-primary">
+                          <input type="radio" id="DebitCard" name="DebitCard" disabled="">
+                          <label for="DebitCard">Debit Card</label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="wizard-pane" id="exampleGettingOne" role="tabpanel">
+
+
+
+                    <div class="text-center my-20">
+                      <h4>Please confrim your order.</h4>
+                      <div class="table-responsive">
+                        <table class="table table-hover text-right">
+                          <thead>
+                            <tr>
+                              <th class="text-center">#</th>
+                              <th>Description</th>
+                              <th class="text-right">Quantity</th>
+                              <th class="text-right">Unit Cost</th>
+                              <th class="text-right">Total</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td class="text-center">1</td>
+                              <td class="text-left">Server hardware purchase</td>
+                              <td>32</td>
+                              <td>$75</td>
+                              <td>$2152</td>
+                            </tr>
+                            <tr>
+                              <td class="text-center">2</td>
+                              <td class="text-left">Office furniture purchase</td>
+                              <td>15</td>
+                              <td>$169</td>
+                              <td>$4169</td>
+                            </tr>
+                            <tr>
+                              <td class="text-center">3</td>
+                              <td class="text-left">Company Anual Dinner Catering</td>
+                              <td>69</td>
+                              <td>$49</td>
+                              <td>$1260</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+              <!-- Wizard Content -->
+            </div>
+          </div>
+          <!-- End Panel Wizard Form Container -->
+        </div>
+
+
+      <h2>Deposit</h2>
+
+      <% errors.forEach(function(err) { %>
+        <li><b><%= err %></b></li>
+      <% }); %>
+      <br>
+
+      <form method="POST">
+
+      <b>Step 1: Create Project</b>
+      
+      <ul>
+        <li>
+            <label class=spacy>Name:</label>
+            <input type=text name=project_name value="<%= project_name %>"\>
+        </li>
+        <li>
+            <label class=spacy>Your Project Code:</label>
+            <input type=text name=project_code value="<%= project_code %>"\>
+        </li>
+      </ul>
+
+      <b>Step 2: Enter Details</b>
+      
+      <ul>
+        <li>
+            <label class=spacy>Amount (GBP):</label>
+            <input type=text name=amount value="<%= amount %>"\>
+        </li>
+      </ul>
+
+      <b>Step 3: Select method</b>
+      
+      <ul>
+        <li>
+            <label class=spacy>Bank Transfer UK GBP</label>
+            <input type=radio name=method value="bank_transfer" checked="true"\>
+        </li>
+      </ul>
+
+      <input type=submit value="REQUEST"/>
+      <input type=hidden name=action value="deposit"/>
+      </form>
+
+            </div>
+          </div>
+        </div>
+        <!-- End Panel -->
+        <!-- Panel -->
+        <div class="col-xxl-4 col-lg-4">
+          <div class="panel panel-bordered">
+            <div class="panel-heading">
+              <h3 class="panel-title">Step 3: Select method</h3>
+            </div>
+            <div class="panel-body">
+              <ul>
+                <li>Currency:
+                    <input type=text name=currency value=""\>
+                </li>
+                <li>Amount:
+                    <input type=text name=amount value=""\>
+                </li>
+                  <input type=submit value="REQUEST"/>
+                  <input type=hidden name=action value="deposit"/>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- End Panel -->
+      </div>
+    </div>
+  </div>
+  <!-- End Page -->
+</body>
+<%- include layout/dashboard/footer %>
